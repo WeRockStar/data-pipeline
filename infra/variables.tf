@@ -7,7 +7,7 @@ variable "project_id" {
 variable "cluster_name" {
   description = "GKE Cluster Name"
   type        = string
-  default     = "my-gke-cluster"
+  default     = "data-pipeline-cluster"
 }
 
 variable "node_count" {
