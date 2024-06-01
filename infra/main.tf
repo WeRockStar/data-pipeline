@@ -4,15 +4,15 @@ resource "google_project_service" "services" {
   service = var.services[count.index]
 
   timeouts {
-    create = "30m"
-    update = "40m"
+    create = "10m"
+    update = "10m"
   }
 
   disable_on_destroy = false
 }
 
 resource "google_compute_network" "vpc_network" {
-  name                    = "vpc-airbyte"
+  name                    = "vpc-${var.cluster_name}"
   auto_create_subnetworks = false
 }
 
@@ -37,13 +37,13 @@ resource "google_container_cluster" "gke_cluster" {
 }
 
 resource "google_compute_subnetwork" "vpc_subnetwork" {
-  name          = "subnet-airbyte"
+  name          = "subnet-${var.cluster_name}"
   ip_cidr_range = "10.0.0.0/24"
   network       = google_compute_network.vpc_network.self_link
 }
 
 resource "google_container_node_pool" "gke_node_pool" {
-  name       = "${var.project_id}-pool"
+  name       = "${var.cluster_name}-pool"
   cluster    = google_container_cluster.gke_cluster.name
   node_count = var.node_count
   location   = "asia-southeast1-a"
@@ -54,8 +54,8 @@ resource "google_container_node_pool" "gke_node_pool" {
   }
 
   timeouts {
-    create = "30m"
-    update = "40m"
+    create = "20m"
+    update = "20m"
   }
 }
 
