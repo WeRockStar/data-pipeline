@@ -24,4 +24,4 @@ jobs:
       - name: Init TFLint
         run: tflint --init
       - name: Run TFLint
-        run: tflint -f compact --recursive ./infra
+        run: tflint -f compact --chdir=./infra
