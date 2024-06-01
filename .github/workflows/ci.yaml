@@ -18,7 +18,7 @@ jobs:
       - uses: terraform-linters/setup-tflint@v2
         name: Setup Terraform Lint
         with:
-          github_token: ${{ secrets.CI_GITHUB_TOKEN }
+          github_token: ${{ secrets.CI_GITHUB_TOKEN }}
           tflint_version: 0.51.3
       - name: Show version
         run: tflint --version
