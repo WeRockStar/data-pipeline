@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: terraform-linters/setup-tflint@v2
+        name: Setup Terraform Lint
+        with:
+          github_token: ${{ secrets.CI_GITHUB_TOKEN }
+          tflint_version: 0.51.3
+      - name: Show version
+        run: tflint --version
+      - name: Init TFLint
+        run: tflint --init
+      - name: Run TFLint
+        run: tflint -f compact --recursive ./infra
