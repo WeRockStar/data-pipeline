@@ -44,6 +44,17 @@ resource "google_container_cluster" "gke_cluster" {
     channel = "STABLE"
   }
 
+  network_policy {
+    enabled = true
+    provider = "CALICO"
+  }
+  
+  private_cluster_config {
+    enable_private_endpoint = false
+    enable_private_nodes    = true
+    master_ipv4_cidr_block  = "10.100.100.0/28"
+  }
+
   network    = google_compute_network.vpc_network.self_link
   subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
 
@@ -68,10 +79,15 @@ resource "google_container_node_pool" "gke_node_pool" {
   node_count = var.node_count
   location   = var.location
 
+  network_config {
+    
+  }
+
   node_config {
     machine_type = "e2-medium"
     preemptible  = true
     disk_size_gb = 10
+    image_type = "COS"
 
     service_account = google_service_account.gke.email
 
