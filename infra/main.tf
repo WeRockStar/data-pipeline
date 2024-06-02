@@ -45,10 +45,10 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   network_policy {
-    enabled = true
+    enabled  = true
     provider = "CALICO"
   }
-  
+
   private_cluster_config {
     enable_private_endpoint = false
     enable_private_nodes    = true
@@ -58,9 +58,10 @@ resource "google_container_cluster" "gke_cluster" {
   network    = google_compute_network.vpc_network.self_link
   subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
 
-  master_auth {
-    client_certificate_config {
-      issue_client_certificate = false
+  master_authorized_networks_config {
+    cidr_blocks {
+      display_name = "[TF] External Control Plane access"
+      cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].access_config[0].nat_ip, "32"])
     }
   }
 
@@ -79,15 +80,16 @@ resource "google_container_node_pool" "gke_node_pool" {
   node_count = var.node_count
   location   = var.location
 
-  network_config {
-    
+  management {
+    auto_repair  = true
+    auto_upgrade = true
   }
 
   node_config {
     machine_type = "e2-medium"
     preemptible  = true
     disk_size_gb = 10
-    image_type = "COS"
+    image_type   = "COS"
 
     service_account = google_service_account.gke.email
 
@@ -103,6 +105,15 @@ resource "google_container_node_pool" "gke_node_pool" {
 
     labels = {
       "project" = var.cluster_name
+    }
+
+    metadata = {
+      disable-legacy-endpoints         = true
+      google-compute-enable-virtio-rng = true
+    }
+
+    workload_metadata_config {
+      mode = "GKE_METADATA_SERVER"
     }
   }
 
