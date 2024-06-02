@@ -11,6 +11,7 @@ terraform {
   backend "gcs" {
     bucket = "data-pipeline-tfstate-425016"
   }
+
 }
 
 provider "google" {
