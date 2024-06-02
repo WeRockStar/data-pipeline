@@ -7,6 +7,10 @@ terraform {
       version = "5.31.1"
     }
   }
+
+  backend "gcs" {
+    bucket = "data-pipeline-tfstate-425016"
+  }
 }
 
 provider "google" {
