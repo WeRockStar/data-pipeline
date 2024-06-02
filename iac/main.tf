@@ -55,15 +55,19 @@ resource "google_container_cluster" "gke_cluster" {
     master_ipv4_cidr_block  = "10.100.100.0/28"
   }
 
+  workload_identity_config {
+    workload_pool = "${var.project_id}.svc.id.goog"
+  }
+
   network    = google_compute_network.vpc_network.self_link
   subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
 
-  master_authorized_networks_config {
-    cidr_blocks {
-      display_name = "[TF] External Control Plane access"
-      cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].access_config[0].nat_ip, "32"])
-    }
-  }
+  # master_authorized_networks_config {
+  #   cidr_blocks {
+  #     display_name = "[TF] External Control Plane access"
+  #     cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].access_config[0].nat_ip, "32"])
+  #   }
+  # }
 
   depends_on = [google_project_service.services]
 }
@@ -89,7 +93,6 @@ resource "google_container_node_pool" "gke_node_pool" {
     machine_type = "e2-medium"
     preemptible  = true
     disk_size_gb = 10
-    image_type   = "COS"
 
     service_account = google_service_account.gke.email
 
@@ -107,13 +110,17 @@ resource "google_container_node_pool" "gke_node_pool" {
       "project" = var.cluster_name
     }
 
+    shielded_instance_config {
+      enable_secure_boot          = true
+    }
+
     metadata = {
       disable-legacy-endpoints         = true
       google-compute-enable-virtio-rng = true
     }
 
     workload_metadata_config {
-      mode = "GKE_METADATA_SERVER"
+      mode = "GKE_METADATA"
     }
   }
 
