@@ -40,6 +40,7 @@ resource "google_container_cluster" "gke_cluster" {
   resource_labels = {
     "project" = var.cluster_name
   }
+
   release_channel {
     channel = "STABLE"
   }
@@ -62,12 +63,12 @@ resource "google_container_cluster" "gke_cluster" {
   network    = google_compute_network.vpc_network.self_link
   subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
 
-  # master_authorized_networks_config {
-  #   cidr_blocks {
-  #     display_name = "[TF] External Control Plane access"
-  #     cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].access_config[0].nat_ip, "32"])
-  #   }
-  # }
+  master_authorized_networks_config {
+    cidr_blocks {
+      display_name = "[TF] External Control Plane access"
+      cidr_block   = "TODO: Bastion IP"
+    }
+  }
 
   depends_on = [google_project_service.services]
 }
