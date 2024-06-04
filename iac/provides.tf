@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/google"
       version = "5.31.1"
     }
+    template = {
+      source  = "hashicorp/template"
+      version = "2.2.0"
+    }
   }
 
   backend "gcs" {
