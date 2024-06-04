@@ -66,7 +66,7 @@ resource "google_container_cluster" "gke_cluster" {
   master_authorized_networks_config {
     cidr_blocks {
       display_name = "[TF] External Control Plane access"
-      cidr_block   = "TODO: Bastion IP"
+      cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].access_config[0].nat_ip, "32"])
     }
   }
 
