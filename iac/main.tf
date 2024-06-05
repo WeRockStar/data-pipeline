@@ -38,7 +38,7 @@ resource "google_container_cluster" "gke_cluster" {
   remove_default_node_pool = true
   deletion_protection      = false
   resource_labels = {
-    "project" = var.cluster_name
+    "project" = var.project_name
   }
 
   release_channel {
@@ -108,11 +108,11 @@ resource "google_container_node_pool" "gke_node_pool" {
     ]
 
     labels = {
-      "project" = var.cluster_name
+      "project" = var.project_name
     }
 
     shielded_instance_config {
-      enable_secure_boot          = true
+      enable_secure_boot = true
     }
 
     metadata = {
