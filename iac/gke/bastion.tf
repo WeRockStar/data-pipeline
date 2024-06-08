@@ -16,7 +16,7 @@ EOF
 
 resource "google_compute_firewall" "bastion-ssh" {
   name          = "bastion-ssh"
-  network       = google_compute_network.vpc_network.self_link
+  network       = var.vpc_name
   direction     = "INGRESS"
   project       = var.project_id
   source_ranges = ["0.0.0.0/0"]
@@ -45,7 +45,7 @@ resource "google_compute_instance" "gke-bastion" {
   }
 
   network_interface {
-    subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
+    subnetwork = var.subnetwork_name
 
     // Add an ephemeral external IP.
     access_config {
