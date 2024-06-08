@@ -85,7 +85,7 @@ EOF
   }
 
   scheduling {
-    preemptible = true
+    preemptible       = true
     automatic_restart = false
   }
 }

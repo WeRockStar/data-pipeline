@@ -11,10 +11,19 @@ repos:
       - id: black
   - repo: local
     hooks:
+      - id: terraform-format-check
+        name: Terraform Format
+        language: system
+        entry: make tf-validate
+        pass_filenames: false
+        types: [terraform]
+        stages: [pre-commit]
+  - repo: local
+    hooks:
       - id: terraform-validate
         name: Terraform Validate
         language: system
-        entry: make tf-validate
+        entry: make tf-format-check
         pass_filenames: false
         types: [terraform]
         stages: [pre-commit]

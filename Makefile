@@ -6,3 +6,5 @@ pre-commit-run:
 	pre-commit run --all-files
 tf-validate:
 	cd iac && terraform validate
+tf-format-check:
+	cd iac && terraform fmt -check
