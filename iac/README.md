@@ -13,6 +13,7 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 ## Setup
 
 - Clone the repository
+- Create a new project in GCP
 - Login to GCP account using `gcloud auth login`
 - Set the project using `gcloud config set project <project-id>`
 - Change project id in `variables.tf` file
@@ -27,5 +28,5 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
   - [ ] Network
   - [ ] Install Airflow, Airbyte, and other tools
 - [ ] Cloud SQL (Postgres)
-- [ ] Cloud Storage: Bucket
+- [ ] Cloud Storage (Bucket)
 - [ ] BigQuery Dataset
