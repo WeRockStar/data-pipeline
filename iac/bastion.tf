@@ -2,7 +2,7 @@ data "template_file" "startup_script" {
   template = <<EOF
 sudo apt-get update -y
 sudo apt-get install -y kubectl
-echo "gcloud container clusters get-credentials $${cluster_name} --region=$${region} -z $${cluster_zone} --project $${project}" >> /etc/profile
+echo "gcloud container clusters get-credentials $${cluster_name} --region $${region} --zone $${cluster_zone} --project $${project}" >> /etc/profile
 EOF
 
 
