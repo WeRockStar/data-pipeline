@@ -78,3 +78,8 @@ variable "secondary_ip_range" {
   type        = string
   default     = "10.0.92.0/22"
 }
+
+variable "cloudflare_api_token" {
+  type      = string
+  sensitive = true
+}

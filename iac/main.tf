@@ -121,15 +121,29 @@ resource "google_container_node_pool" "gke_node_pool" {
   }
 }
 
-# Install Airbyte using Helm
-# resource "helm_release" "airbyte" {
-#   name       = "airbyte"
-#   repository = "https://airbytehq.github.io/helm-charts"
-#   chart      = "airbyte"
-#   version    = "0.31.0"
+data "google_client_config" "default" {
 
-#   set {
-#     name  = "service.type"
-#     value = "LoadBalancer"
-#   }
-# }
+}
+
+provider "kubernetes" {
+  config_context_cluster = google_container_cluster.gke_cluster.name
+  host                   = google_container_cluster.gke_cluster.endpoint
+  token                  = data.google_client_config.default.access_token
+}
+
+provider "helm" {
+  kubernetes {
+    config_context_cluster = google_container_cluster.gke_cluster.name
+  }
+}
+
+resource "helm_release" "airbyte" {
+  name             = "airbyte"
+  namespace        = "airbyte"
+  create_namespace = true
+  repository       = "https://airbytehq.github.io/helm-charts"
+  chart            = "airbyte"
+  version          = "0.135.1"
+
+  values = [file("${path.module}/values/airbyte.yaml")]
+}

@@ -10,6 +10,18 @@ terraform {
       source  = "hashicorp/template"
       version = "2.2.0"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.13"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.29.0"
+    }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "4.31.0"
+    }
   }
 
   backend "gcs" {
@@ -25,4 +37,8 @@ provider "google" {
   default_labels = {
     project = var.project_name
   }
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
