@@ -13,14 +13,29 @@ EOF
   }
 }
 
+resource "google_compute_firewall" "bastion-ssh" {
+  name          = "bastion-ssh"
+  network       = google_compute_network.vpc_network.self_link
+  direction     = "INGRESS"
+  project       = var.project_id
+  source_ranges = ["0.0.0.0/0"]
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  // Apply the firewall rule to the bastion host (matching the tags).
+  target_tags = var.bastion_tags
+}
+
 resource "google_compute_instance" "gke-bastion" {
   name                      = var.bastion_hostname
   machine_type              = var.bastion_machine_type
-  zone                      = var.location
+  zone                      = var.zone-b
   project                   = var.project_id
-  tags                      = var.bastion_tags
+  tags                      = var.bastion_tags // Apply the firewall rule to the bastion host.
   allow_stopping_for_update = true
-
 
   boot_disk {
     initialize_params {

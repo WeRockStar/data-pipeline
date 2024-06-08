@@ -27,9 +27,19 @@ variable "sa-roles" {
   ]
 }
 
+variable "region" {
+  type    = string
+  default = "asia-southeast1"
+}
+
 variable "location" {
   type    = string
   default = "asia-southeast1-a"
+}
+
+variable "zone-b" {
+  type    = string
+  default = "asia-southeast1-b"
 }
 
 variable "node_count" {
@@ -66,4 +76,11 @@ variable "bastion_tags" {
   description = "A list of tags applied to your bastion instance."
   type        = list(string)
   default     = ["bastion"]
+}
+
+variable "secondary_ip_range" {
+  // See https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips
+  description = "The CIDR from which to allocate pod IPs for IP Aliasing."
+  type        = string
+  default     = "10.0.92.0/22"
 }

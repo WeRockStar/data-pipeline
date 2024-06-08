@@ -26,11 +26,6 @@ resource "google_project_iam_binding" "gke_sa" {
   ]
 }
 
-resource "google_compute_network" "vpc_network" {
-  name                    = "vpc-${var.cluster_name}"
-  auto_create_subnetworks = false
-}
-
 resource "google_container_cluster" "gke_cluster" {
   name                     = var.cluster_name
   location                 = var.location
@@ -53,7 +48,7 @@ resource "google_container_cluster" "gke_cluster" {
   private_cluster_config {
     enable_private_endpoint = false
     enable_private_nodes    = true
-    master_ipv4_cidr_block  = "10.100.100.0/28"
+    master_ipv4_cidr_block  = "10.0.90.0/28"
   }
 
   workload_identity_config {
@@ -71,12 +66,6 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   depends_on = [google_project_service.services]
-}
-
-resource "google_compute_subnetwork" "vpc_subnetwork" {
-  name          = "subnet-${var.cluster_name}"
-  ip_cidr_range = "10.0.0.0/24"
-  network       = google_compute_network.vpc_network.self_link
 }
 
 resource "google_container_node_pool" "gke_node_pool" {
