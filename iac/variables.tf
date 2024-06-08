@@ -66,12 +66,6 @@ variable "bastion_hostname" {
   default = "gke-bastion"
 }
 
-variable "ssh_user_bastion" {
-  description = "ssh user for bastion server"
-  type        = string
-  default     = "bastion"
-}
-
 variable "bastion_tags" {
   description = "A list of tags applied to your bastion instance."
   type        = list(string)
