@@ -10,6 +10,14 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 - GCP account
 - gcloud CLI
 
+## Setup
+
+- Clone the repository
+- Login to GCP account using `gcloud auth login`
+- Set the project using `gcloud config set project <project-id>`
+- Change project id in `variables.tf` file
+- Plan and apply the Terraform code using `terraform apply` and `terraform apply`
+
 ### Provisioning
 
 - [ ] GKE
