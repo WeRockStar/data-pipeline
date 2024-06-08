@@ -2,14 +2,15 @@ data "template_file" "startup_script" {
   template = <<EOF
 sudo apt-get update -y
 sudo apt-get install -y kubectl
-echo "gcloud container clusters get-credentials $${cluster_name} --zone $${cluster_zone} --project $${project}" >> /etc/profile
+echo "gcloud container clusters get-credentials $${cluster_name} --region=$${region} -z $${cluster_zone} --project $${project}" >> /etc/profile
 EOF
 
 
   vars = {
     cluster_name = var.cluster_name
-    cluster_zone = var.location
+    cluster_zone = var.zone_c
     project      = var.project_id
+    region       = var.region
   }
 }
 
@@ -32,7 +33,7 @@ resource "google_compute_firewall" "bastion-ssh" {
 resource "google_compute_instance" "gke-bastion" {
   name                      = var.bastion_hostname
   machine_type              = var.bastion_machine_type
-  zone                      = var.zone-b
+  zone                      = var.zone_c
   project                   = var.project_id
   tags                      = var.bastion_tags // Apply the firewall rule to the bastion host.
   allow_stopping_for_update = true
@@ -48,7 +49,7 @@ resource "google_compute_instance" "gke-bastion" {
 
     // Add an ephemeral external IP.
     access_config {
-      // Implicit ephemeral IP
+      network_tier = "STANDARD"
     }
   }
 
@@ -66,7 +67,7 @@ resource "google_compute_instance" "gke-bastion" {
     command     = <<EOF
         READY=""
         for i in $(seq 1 18); do
-          if gcloud compute ssh ${var.ssh_user_bastion}@${var.bastion_hostname} --command uptime; then
+          if gcloud compute ssh ${var.bastion_hostname} --project ${var.project_id} --zone=${var.zone_c} --command uptime; then
             READY="yes"
             break;
           fi
@@ -79,9 +80,12 @@ resource "google_compute_instance" "gke-bastion" {
           echo "Please verify that the instance starts and then re-run `terraform apply`"
           exit 1
         fi
-
-        gcloud compute  --project ${var.project_id} scp --zone ${var.location} --recurse ../manifests ${var.ssh_user_bastion}@${var.bastion_hostname}:
 EOF
 
+  }
+
+  scheduling {
+    preemptible = true
+    automatic_restart = false
   }
 }

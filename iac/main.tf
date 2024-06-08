@@ -93,7 +93,8 @@ resource "google_container_node_pool" "gke_node_pool" {
       "https://www.googleapis.com/auth/cloud-platform",
       "https://www.googleapis.com/auth/service.management.readonly",
       "https://www.googleapis.com/auth/servicecontrol",
-      "https://www.googleapis.com/auth/trace.append"
+      "https://www.googleapis.com/auth/trace.append",
+      "https://www.googleapis.com/auth/compute"
     ]
 
     labels = {

@@ -37,9 +37,9 @@ variable "location" {
   default = "asia-southeast1-a"
 }
 
-variable "zone-b" {
+variable "zone_c" {
   type    = string
-  default = "asia-southeast1-b"
+  default = "asia-southeast1-c"
 }
 
 variable "node_count" {
