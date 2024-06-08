@@ -1,6 +1,7 @@
 variable "cluster_name" {
   description = "GKE Cluster Name"
   type        = string
+  default     = "data-pipeline-cluster"
 }
 
 variable "region" {

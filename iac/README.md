@@ -22,11 +22,11 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 
 ### Provisioning
 
+- [x] Network - VPC, Subnet. Apply the `network` module first.
 - [ ] GKE
   - [x] Service Account
   - [x] Node Pool
   - [ ] Bastion
-  - [ ] Network
   - [ ] Install `Airflow`, `Airbyte`, and other tools
 - [ ] Cloud SQL (Postgres)
 - [ ] Cloud Storage (Bucket)
