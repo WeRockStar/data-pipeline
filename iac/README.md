@@ -18,6 +18,7 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 - Set the project using `gcloud config set project <project-id>`
 - Change project id in `variables.tf` file
 - Plan and apply the Terraform code using `terraform apply` and `terraform apply`
+- Destroy the infrastructure using `terraform destroy`
 
 ### Provisioning
 
@@ -26,7 +27,7 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
   - [x] Node Pool
   - [ ] Bastion
   - [ ] Network
-  - [ ] Install Airflow, Airbyte, and other tools
+  - [ ] Install `Airflow`, `Airbyte`, and other tools
 - [ ] Cloud SQL (Postgres)
 - [ ] Cloud Storage (Bucket)
 - [ ] BigQuery Dataset
