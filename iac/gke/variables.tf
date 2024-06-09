@@ -73,11 +73,6 @@ variable "bastion_tags" {
   default     = ["bastion"]
 }
 
-variable "cloudflare_api_token" {
-  type      = string
-  sensitive = true
-}
-
 variable "vpc_name" {
   type = string
 }

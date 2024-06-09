@@ -18,10 +18,6 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.29.0"
     }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "4.31.0"
-    }
   }
 }
 
@@ -32,8 +28,4 @@ provider "google" {
   default_labels = {
     project = var.project_name
   }
-}
-
-provider "cloudflare" {
-  api_token = var.cloudflare_api_token
 }

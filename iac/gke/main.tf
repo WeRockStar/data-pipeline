@@ -8,7 +8,7 @@ resource "google_project_service" "services" {
     update = "10m"
   }
 
-  disable_on_destroy = true
+  disable_on_destroy = false
 }
 
 resource "google_service_account" "gke" {
