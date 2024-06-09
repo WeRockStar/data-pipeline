@@ -82,6 +82,8 @@ resource "google_compute_instance" "gke-bastion" {
   metadata_startup_script = <<SCRIPT
     sudo apt-get update -y
     sudo apt-get install -y tinyproxy
+    grep -qxF ‘Allow localhost’ /etc/tinyproxy/tinyproxy.conf || echo ‘Allow localhost’ >> /etc/tinyproxy/tinyproxy.conf
+    service tinyproxy restart
   SCRIPT
 
   // Necessary scopes for administering kubernetes.
