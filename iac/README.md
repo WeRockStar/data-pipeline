@@ -22,6 +22,8 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 
 ### Provisioning
 
+Goal is to provision the following resources and organize them in modules:
+
 - [x] Network - VPC, Subnet. Apply the `network` module first.
 - [ ] GKE
   - [x] Service Account
