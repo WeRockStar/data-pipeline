@@ -38,7 +38,7 @@ resource "google_compute_firewall" "bastion-ssh" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22"]
+    ports    = ["22", "8888"]
   }
 
   // Apply the firewall rule to the bastion host (matching the tags).

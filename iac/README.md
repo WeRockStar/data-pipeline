@@ -28,7 +28,7 @@ Goal is to provision the following resources and organize them in modules:
 - [ ] GKE
   - [x] Service Account
   - [x] Node Pool
-  - [ ] Bastion
+  - [x] Bastion
   - [ ] Install `Airflow`, `Airbyte`, and other tools
 - [ ] Cloud SQL (Postgres)
 - [ ] Cloud Storage (Bucket)

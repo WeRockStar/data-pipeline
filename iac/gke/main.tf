@@ -32,12 +32,13 @@ resource "google_container_cluster" "gke_cluster" {
   initial_node_count       = var.node_count
   remove_default_node_pool = true
   deletion_protection      = false
-  resource_labels = {
-    "project" = var.project_name
-  }
 
   release_channel {
     channel = "STABLE"
+  }
+
+  ip_allocation_policy {
+    cluster_secondary_range_name = "secondary-range"
   }
 
   network_policy {
@@ -61,7 +62,7 @@ resource "google_container_cluster" "gke_cluster" {
   master_authorized_networks_config {
     cidr_blocks {
       display_name = "[TF] External Control Plane access"
-      cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].access_config[0].nat_ip, "32"])
+      cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].network_ip, "32"])
     }
   }
 
