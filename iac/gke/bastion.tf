@@ -53,6 +53,11 @@ resource "google_compute_instance" "gke-bastion" {
     }
   }
 
+  timeouts {
+    create = "10m"
+    update = "10m"
+  }
+
   // Ensure that when the bastion host is booted, it will have kubectl.
   # metadata_startup_script = "sudo apt-get install -y kubectl"
   metadata_startup_script = data.template_file.startup_script.rendered
@@ -67,7 +72,7 @@ resource "google_compute_instance" "gke-bastion" {
     command     = <<EOF
         READY=""
         for i in $(seq 1 18); do
-          if gcloud compute ssh ${var.bastion_hostname} --project ${var.project_id} --zone=${var.zone_c} --command uptime; then
+          if gcloud compute ssh ${var.bastion_hostname} --project ${var.project_id} --zone ${var.zone_c} --command uptime; then
             READY="yes"
             break;
           fi
@@ -88,4 +93,6 @@ EOF
     preemptible       = true
     automatic_restart = false
   }
+
+  depends_on = [ google_compute_firewall.bastion-ssh ]
 }

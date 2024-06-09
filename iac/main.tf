@@ -15,4 +15,5 @@ module "gke" {
   subnetwork_name      = data.google_compute_subnetwork.subnetwork.self_link
   cluster_name         = var.cluster_name
   region               = var.region
+  node_count           = 2
 }

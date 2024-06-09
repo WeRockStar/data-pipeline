@@ -41,7 +41,6 @@ variable "zone_c" {
 variable "node_count" {
   description = "Number of GKE nodes"
   type        = number
-  default     = 2
 }
 
 variable "services" {
