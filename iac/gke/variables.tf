@@ -24,6 +24,13 @@ variable "sa-roles" {
   ]
 }
 
+variable "bastion-sa-roles" {
+  type = list(string)
+  default = [
+    "roles/iam.serviceAccountUser"
+  ]
+}
+
 variable "region" {
   type = string
 }
@@ -46,8 +53,7 @@ variable "node_count" {
 variable "services" {
   description = "List of GCP services to enable"
   type        = list(string)
-  default     = ["compute.googleapis.com", "iam.googleapis.com", "container.googleapis.com"]
-
+  default     = ["compute.googleapis.com", "iam.googleapis.com", "container.googleapis.com", "iap.googleapis.com"]
 }
 
 variable "bastion_machine_type" {

@@ -14,6 +14,21 @@ EOF
   }
 }
 
+resource "google_service_account" "bastion" {
+  account_id   = "${var.bastion_hostname}-sa"
+  display_name = "[TF] GKE Bastion Service Account"
+}
+
+resource "google_project_iam_binding" "bastion_sa_roles" {
+  for_each = toset(var.bastion-sa-roles)
+
+  project = var.project_id
+  role    = each.value
+  members = [
+    "serviceAccount:${google_service_account.bastion.email}"
+  ]
+}
+
 resource "google_compute_firewall" "bastion-ssh" {
   name          = "bastion-ssh"
   network       = var.vpc_name
@@ -44,6 +59,12 @@ resource "google_compute_instance" "gke-bastion" {
     }
   }
 
+  shielded_instance_config {
+    enable_secure_boot          = true
+    enable_vtpm                 = true
+    enable_integrity_monitoring = true
+  }
+
   network_interface {
     subnetwork = var.subnetwork_name
 
@@ -58,21 +79,22 @@ resource "google_compute_instance" "gke-bastion" {
     update = "10m"
   }
 
-  // Ensure that when the bastion host is booted, it will have kubectl.
-  # metadata_startup_script = "sudo apt-get install -y kubectl"
-  metadata_startup_script = data.template_file.startup_script.rendered
+  metadata_startup_script = <<SCRIPT
+    sudo apt-get update -y
+    sudo apt-get install -y tinyproxy
+  SCRIPT
 
   // Necessary scopes for administering kubernetes.
   service_account {
+    email  = google_service_account.bastion.email
     scopes = ["userinfo-email", "compute-ro", "storage-ro", "cloud-platform"]
   }
 
   provisioner "local-exec" {
-    interpreter = ["/bin/bash", "-c"]
-    command     = <<EOF
+    command = <<EOF
         READY=""
         for i in $(seq 1 18); do
-          if gcloud compute ssh ${var.bastion_hostname} --project ${var.project_id} --zone ${var.zone_c} --command uptime; then
+          if gcloud compute ssh ${var.bastion_hostname} --project ${var.project_id} --zone ${var.zone_c} --tunnel-through-iap --command uptime; then
             READY="yes"
             break;
           fi
@@ -94,5 +116,5 @@ EOF
     automatic_restart = false
   }
 
-  depends_on = [ google_compute_firewall.bastion-ssh ]
+  depends_on = [google_compute_firewall.bastion-ssh]
 }
