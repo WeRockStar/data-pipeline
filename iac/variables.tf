@@ -20,3 +20,8 @@ variable "cluster_name" {
   type        = string
   default     = "data-pipeline-cluster"
 }
+
+variable "region" {
+  type    = string
+  default = "asia-southeast1"
+}

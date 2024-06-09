@@ -11,7 +11,6 @@ variable "project_name" {
 variable "cluster_name" {
   description = "GKE Cluster Name"
   type        = string
-  default     = "data-pipeline-cluster"
 }
 
 variable "sa-roles" {
@@ -26,8 +25,7 @@ variable "sa-roles" {
 }
 
 variable "region" {
-  type    = string
-  default = "asia-southeast1"
+  type = string
 }
 
 variable "location" {
