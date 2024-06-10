@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "data-pipeline-network-tfstate-425016"
+    bucket = "data-pipeline-tfstate-starter-425016"
   }
 
 }
