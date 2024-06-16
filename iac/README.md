@@ -33,3 +33,50 @@ Goal is to provision the following resources and organize them in modules:
 - [ ] Cloud SQL (Postgres)
 - [ ] Cloud Storage (Bucket)
 - [ ] BigQuery Dataset
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.34.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | 5.31.1 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.13 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.29.0 |
+| <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | 5.31.1 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_cloudflare"></a> [cloudflare](#module\_cloudflare) | ./cloudflare | n/a |
+| <a name="module_gke"></a> [gke](#module\_gke) | ./gke | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [google_compute_network.vpc_network](https://registry.terraform.io/providers/hashicorp/google/5.31.1/docs/data-sources/compute_network) | data source |
+| [google_compute_subnetwork.subnetwork](https://registry.terraform.io/providers/hashicorp/google/5.31.1/docs/data-sources/compute_subnetwork) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_cloudflare_api_token"></a> [cloudflare\_api\_token](#input\_cloudflare\_api\_token) | n/a | `string` | n/a | yes |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | GKE Cluster Name | `string` | `"data-pipeline-cluster"` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP Project ID | `string` | `"learn-airbyte-425016"` | no |
+| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Name of Porject | `string` | `"data-pipeline"` | no |
+| <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"asia-southeast1"` | no |
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
