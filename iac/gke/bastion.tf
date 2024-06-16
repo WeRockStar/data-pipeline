@@ -19,19 +19,9 @@ resource "google_service_account" "bastion" {
   display_name = "[TF] GKE Bastion Service Account"
 }
 
-resource "google_project_iam_binding" "bastion_sa_roles" {
-  for_each = toset(var.bastion-sa-roles)
-
-  project = var.project_id
-  role    = each.value
-  members = [
-    "serviceAccount:${google_service_account.bastion.email}"
-  ]
-}
-
 resource "google_compute_firewall" "bastion-ssh" {
   name          = "bastion-ssh"
-  network       = var.vpc_name
+  network       = google_compute_network.vpc_network.self_link
   direction     = "INGRESS"
   project       = var.project_id
   source_ranges = ["0.0.0.0/0"]
@@ -66,7 +56,7 @@ resource "google_compute_instance" "gke-bastion" {
   }
 
   network_interface {
-    subnetwork = var.subnetwork_name
+    subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
 
     // Add an ephemeral external IP.
     access_config {

@@ -49,15 +49,15 @@ resource "google_container_cluster" "gke_cluster" {
   private_cluster_config {
     enable_private_endpoint = false
     enable_private_nodes    = true
-    master_ipv4_cidr_block  = "10.0.90.0/28"
+    master_ipv4_cidr_block  = var.master_ipv4_cidr_block
   }
 
   workload_identity_config {
     workload_pool = "${var.project_id}.svc.id.goog"
   }
 
-  network    = var.vpc_name
-  subnetwork = var.subnetwork_name
+  network    = google_compute_network.vpc_network.self_link
+  subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
 
   master_authorized_networks_config {
     cidr_blocks {
@@ -67,6 +67,11 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   depends_on = [google_project_service.services]
+
+  timeouts {
+    create = "15m"
+    update = "15m"
+  }
 }
 
 resource "google_container_node_pool" "gke_node_pool" {

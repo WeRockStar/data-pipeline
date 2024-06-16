@@ -20,14 +20,8 @@ variable "sa-roles" {
     "roles/monitoring.admin",
     "roles/cloudtrace.admin",
     "roles/servicemanagement.serviceController",
-    "roles/artifactregistry.reader"
-  ]
-}
-
-variable "bastion-sa-roles" {
-  type = list(string)
-  default = [
-    "roles/iam.serviceAccountUser"
+    "roles/artifactregistry.reader",
+    "roles/compute.networkUser"
   ]
 }
 
@@ -73,10 +67,21 @@ variable "bastion_tags" {
   default     = ["bastion"]
 }
 
-variable "vpc_name" {
-  type = string
+variable "ip_range" {
+  description = "The CIDR range for the VPC."
+  type        = string
+  default     = "10.0.96.0/22"
 }
 
-variable "subnetwork_name" {
-  type = string
+variable "secondary_ip_range" {
+  // See https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips
+  description = "The CIDR from which to allocate pod IPs for IP Aliasing."
+  type        = string
+  default     = "10.0.92.0/22"
+}
+
+variable "master_ipv4_cidr_block" {
+  type        = string
+  default     = "10.0.90.0/28"
+  description = "The IP range for the master node."
 }
