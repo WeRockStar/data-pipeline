@@ -48,9 +48,7 @@ Goal is to provision the following resources and organize them in modules:
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.31.1 |
+No providers.
 
 ## Modules
 
@@ -61,10 +59,7 @@ Goal is to provision the following resources and organize them in modules:
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [google_compute_network.vpc_network](https://registry.terraform.io/providers/hashicorp/google/5.31.1/docs/data-sources/compute_network) | data source |
-| [google_compute_subnetwork.subnetwork](https://registry.terraform.io/providers/hashicorp/google/5.31.1/docs/data-sources/compute_subnetwork) | data source |
+No resources.
 
 ## Inputs
 
@@ -78,5 +73,7 @@ Goal is to provision the following resources and organize them in modules:
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_kubernetes_cluster_host"></a> [kubernetes\_cluster\_host](#output\_kubernetes\_cluster\_host) | n/a |
 <!-- END_TF_DOCS -->
