@@ -9,6 +9,12 @@ variable "region" {
   default = "asia-southeast1"
 }
 
+variable "ip_range" {
+  description = "The CIDR range for the VPC."
+  type        = string
+  default     = "10.0.96.0/22"
+}
+
 variable "secondary_ip_range" {
   // See https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips
   description = "The CIDR from which to allocate pod IPs for IP Aliasing."
