@@ -10,3 +10,4 @@
 - `Airbyte`
 - `Apache Airflow`
 - `dbt` (Data Build Tool)
+- `Great Expectation` - Data Quality
