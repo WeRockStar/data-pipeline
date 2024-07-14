@@ -25,11 +25,13 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 Goal is to provision the following resources and organize them in modules:
 
 - [x] Network - VPC, Subnet. Apply the `network` module first.
-- [ ] GKE
+- [x] GKE
   - [x] Service Account
   - [x] Node Pool
-  - [x] Bastion
-  - [ ] Install `Airflow`, `Airbyte`, and other tools
+  - [x] Install `Airflow`, `Airbyte`, and other tools
+- [x] Cloudflare
+  - [x] airbyte.werockstar.dev
+  - [x] airflow.werockstar.dev
 - [ ] Cloud SQL (Postgres)
 - [ ] Cloud Storage (Bucket)
 - [ ] BigQuery Dataset
@@ -73,6 +75,7 @@ No resources.
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP Project ID | `string` | `"learn-airbyte-425016"` | no |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Name of Porject | `string` | `"data-pipeline"` | no |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"asia-southeast1"` | no |
+| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | Cloudflare Zone ID | `string` | n/a | yes |
 
 ## Outputs
 
