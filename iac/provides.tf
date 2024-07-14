@@ -16,11 +16,11 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.29.0"
+      version = "2.31.0"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.34.0"
+      version = "4.37.0"
     }
   }
 
