@@ -87,7 +87,7 @@ resource "google_container_node_pool" "gke_node_pool" {
   }
 
   node_config {
-    machine_type = "e2-medium"
+    machine_type = "e2-standard-8"
     preemptible  = true
     disk_size_gb = 20
 
@@ -116,10 +116,6 @@ resource "google_container_node_pool" "gke_node_pool" {
       disable-legacy-endpoints         = true
       google-compute-enable-virtio-rng = true
     }
-
-    # workload_metadata_config {
-    #   mode = "GKE_METADATA"
-    # }
   }
 
   lifecycle {
@@ -149,7 +145,7 @@ resource "helm_release" "nginx_ingress" {
   timeout          = 600
   create_namespace = true
 
-  name = "ingress-nginx"
+  name       = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
   version    = "v4.11.0"
