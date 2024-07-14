@@ -8,11 +8,6 @@ module "gke" {
   location     = var.location
 }
 
-module "cloudflare" {
-  source               = "./cloudflare"
-  cloudflare_api_token = var.cloudflare_api_token
-}
-
 module "airbyte" {
   source                 = "./airbyte"
   cluster_name           = var.cluster_name
