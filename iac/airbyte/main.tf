@@ -37,3 +37,11 @@ resource "kubernetes_namespace" "airbyte" {
 #   timeout    = 600
 #   values     = [file("${path.module}/values.yaml")]
 # }
+
+resource "null_resource" "execute_command" {
+  provisioner "local-exec" {
+    command = "helm upgrade -install airbyte airbyte/airbyte --namespace airbyte"
+  }
+
+  depends_on = [kubernetes_namespace.airbyte]
+}

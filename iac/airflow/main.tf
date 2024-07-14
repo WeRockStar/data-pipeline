@@ -27,6 +27,7 @@ resource "kubernetes_namespace" "airflow" {
   }
 }
 
+// Unable to install airflow using helm_release resource
 # resource "helm_release" "airflow" {
 #   name       = "airflow"
 #   namespace  = kubernetes_namespace.airflow.metadata.0.name
@@ -36,4 +37,11 @@ resource "kubernetes_namespace" "airflow" {
 #   wait       = true
 #   timeout    = 600
 #   values     = [file("${path.module}/values.yaml")]
-# }
+
+resource "null_resource" "execute_command" {
+  provisioner "local-exec" {
+    command = "helm upgrade -install airflow apache-airflow/airflow --namespace airflow"
+  }
+
+  depends_on = [kubernetes_namespace.airflow]
+}
