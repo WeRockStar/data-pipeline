@@ -44,11 +44,11 @@ resource "google_container_cluster" "gke_cluster" {
     services_ipv4_cidr_block = "10.12.0.0/21"
   }
 
-  private_cluster_config {
-    enable_private_endpoint = false
-    enable_private_nodes    = false
-    master_ipv4_cidr_block  = "10.13.0.0/28"
-  }
+  # private_cluster_config {
+  #   enable_private_endpoint = false
+  #   enable_private_nodes    = false
+  #   master_ipv4_cidr_block  = "10.13.0.0/28"
+  # }
 
   network_policy {
     enabled  = true
@@ -59,13 +59,13 @@ resource "google_container_cluster" "gke_cluster" {
     workload_pool = "${var.project_id}.svc.id.goog"
   }
 
-  master_authorized_networks_config {
-    cidr_blocks {
-      display_name = "[TF] External Control Plane access"
-      cidr_block   = "10.0.0.7/32"
-      # cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].network_ip, "32"])
-    }
-  }
+  # master_authorized_networks_config {
+  #   cidr_blocks {
+  #     display_name = "[TF] External Control Plane access"
+  #     cidr_block   = "10.0.0.7/32"
+  #     # cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].network_ip, "32"])
+  #   }
+  # }
 
   depends_on = [google_project_service.services]
 
@@ -89,7 +89,7 @@ resource "google_container_node_pool" "gke_node_pool" {
   node_config {
     machine_type = "e2-medium"
     preemptible  = true
-    disk_size_gb = 10
+    disk_size_gb = 20
 
     service_account = google_service_account.gke.email
 
@@ -117,9 +117,9 @@ resource "google_container_node_pool" "gke_node_pool" {
       google-compute-enable-virtio-rng = true
     }
 
-    workload_metadata_config {
-      mode = "GKE_METADATA"
-    }
+    # workload_metadata_config {
+    #   mode = "GKE_METADATA"
+    # }
   }
 
   timeouts {
@@ -159,9 +159,9 @@ provider "helm" {
 #   create_namespace = true
 #   repository       = "https://airbytehq.github.io/helm-charts"
 #   chart            = "airbyte"
-#   version          = "0.135.1"
+#   version          = "0.293.4"
 
-#   values = [file("${path.module}/values/airbyte.yaml")]
+#   # values = [file("${path.module}/values/airbyte.yaml")]
 # }
 
 output "kubernetes_cluster_host" {

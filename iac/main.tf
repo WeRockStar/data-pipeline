@@ -4,7 +4,7 @@ module "gke" {
   project_id   = var.project_id
   cluster_name = var.cluster_name
   region       = var.region
-  node_count   = 2
+  node_count   = 3
 }
 
 module "cloudflare" {
