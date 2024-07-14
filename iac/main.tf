@@ -11,3 +11,7 @@ module "cloudflare" {
   source               = "./cloudflare"
   cloudflare_api_token = var.cloudflare_api_token
 }
+
+output "kubernetes_cluster_host" {
+  value = module.gke.kubernetes_cluster_host
+}

@@ -70,7 +70,7 @@ variable "bastion_tags" {
 variable "ip_range" {
   description = "The CIDR range for the VPC."
   type        = string
-  default     = "10.0.96.0/22"
+  default     = "10.0.0.0/24"
 }
 
 variable "secondary_ip_range" {

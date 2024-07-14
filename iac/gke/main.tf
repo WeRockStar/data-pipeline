@@ -32,45 +32,46 @@ resource "google_container_cluster" "gke_cluster" {
   initial_node_count       = var.node_count
   remove_default_node_pool = true
   deletion_protection      = false
+  network    = google_compute_network.vpc_network.self_link
+  subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
 
   release_channel {
     channel = "STABLE"
   }
 
   ip_allocation_policy {
-    cluster_secondary_range_name = "secondary-range"
-  }
-
-  network_policy {
-    enabled  = true
-    provider = "CALICO"
+    cluster_ipv4_cidr_block  = "10.11.0.0/21"
+    services_ipv4_cidr_block = "10.12.0.0/21"
   }
 
   private_cluster_config {
-    enable_private_endpoint = false
+    enable_private_endpoint = true
     enable_private_nodes    = true
-    master_ipv4_cidr_block  = var.master_ipv4_cidr_block
+    master_ipv4_cidr_block  = "10.13.0.0/28"
   }
 
-  workload_identity_config {
-    workload_pool = "${var.project_id}.svc.id.goog"
-  }
+  # network_policy {
+  #   enabled  = true
+  #   provider = "CALICO"
+  # }
 
-  network    = google_compute_network.vpc_network.self_link
-  subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
+  # workload_identity_config {
+  #   workload_pool = "${var.project_id}.svc.id.goog"
+  # }
 
   master_authorized_networks_config {
     cidr_blocks {
       display_name = "[TF] External Control Plane access"
-      cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].network_ip, "32"])
+      cidr_block   = "10.0.0.7/32"
+      # cidr_block   = join("/", [google_compute_instance.gke-bastion.network_interface[0].network_ip, "32"])
     }
   }
 
   depends_on = [google_project_service.services]
 
   timeouts {
-    create = "15m"
-    update = "15m"
+    create = "20m"
+    update = "20m"
   }
 }
 
@@ -107,18 +108,18 @@ resource "google_container_node_pool" "gke_node_pool" {
       "project" = var.project_name
     }
 
-    shielded_instance_config {
-      enable_secure_boot = true
-    }
+    # shielded_instance_config {
+    #   enable_secure_boot = true
+    # }
 
-    metadata = {
-      disable-legacy-endpoints         = true
-      google-compute-enable-virtio-rng = true
-    }
+    # metadata = {
+    #   disable-legacy-endpoints         = true
+    #   google-compute-enable-virtio-rng = true
+    # }
 
-    workload_metadata_config {
-      mode = "GKE_METADATA"
-    }
+    # workload_metadata_config {
+    #   mode = "GKE_METADATA"
+    # }
   }
 
   timeouts {
@@ -152,13 +153,23 @@ provider "helm" {
   }
 }
 
-resource "helm_release" "airbyte" {
-  name             = "airbyte"
-  namespace        = "airbyte"
-  create_namespace = true
-  repository       = "https://airbytehq.github.io/helm-charts"
-  chart            = "airbyte"
-  version          = "0.135.1"
+# resource "helm_release" "airbyte" {
+#   name             = "airbyte"
+#   namespace        = "airbyte"
+#   create_namespace = true
+#   repository       = "https://airbytehq.github.io/helm-charts"
+#   chart            = "airbyte"
+#   version          = "0.135.1"
 
-  values = [file("${path.module}/values/airbyte.yaml")]
+#   values = [file("${path.module}/values/airbyte.yaml")]
+# }
+
+output "kubernetes_cluster_host" {
+  value       = google_container_cluster.gke_cluster.endpoint
+  description = "GKE Cluster Host"
+}
+
+output "kubernetes_cluster_name" {
+  value       = google_container_cluster.gke_cluster.name
+  description = "GKE Cluster Name"
 }

@@ -19,6 +19,14 @@ resource "google_service_account" "bastion" {
   display_name = "[TF] GKE Bastion Service Account"
 }
 
+resource "google_project_iam_binding" "bastion_sa_iap" {
+  project = var.project_id
+  role    = "roles/iap.tunnelResourceAccessor"
+  members = [
+    "serviceAccount:${google_service_account.bastion.email}"
+  ]
+}
+
 resource "google_compute_firewall" "bastion-ssh" {
   name          = "bastion-ssh"
   network       = google_compute_network.vpc_network.self_link
@@ -33,6 +41,16 @@ resource "google_compute_firewall" "bastion-ssh" {
 
   // Apply the firewall rule to the bastion host (matching the tags).
   target_tags = var.bastion_tags
+}
+
+resource "google_compute_address" "internal_ip_addr" {
+  project      = var.project_id
+  address_type = "INTERNAL"
+  region       = var.region
+  subnetwork   = google_compute_subnetwork.vpc_subnetwork.self_link
+  name         = "internal-ip"
+  address      = "10.0.0.7"
+  description  = "An internal IP address for bastion host"
 }
 
 resource "google_compute_instance" "gke-bastion" {
@@ -57,6 +75,8 @@ resource "google_compute_instance" "gke-bastion" {
 
   network_interface {
     subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
+    network    = google_compute_network.vpc_network.self_link
+    network_ip = google_compute_address.internal_ip_addr.address
 
     // Add an ephemeral external IP.
     access_config {
@@ -69,12 +89,14 @@ resource "google_compute_instance" "gke-bastion" {
     update = "10m"
   }
 
-  metadata_startup_script = <<SCRIPT
-    sudo apt-get update -y
-    sudo apt-get install -y tinyproxy
-    grep -qxF ‘Allow localhost’ /etc/tinyproxy/tinyproxy.conf || echo ‘Allow localhost’ >> /etc/tinyproxy/tinyproxy.conf
-    service tinyproxy restart
-  SCRIPT
+  # metadata_startup_script = <<SCRIPT
+  #   sudo apt-get update -y
+  #   sudo apt-get install -y tinyproxy
+  #   grep -qxF ‘Allow localhost’ /etc/tinyproxy/tinyproxy.conf || echo ‘Allow localhost’ >> /etc/tinyproxy/tinyproxy.conf
+  #   service tinyproxy restart
+  # SCRIPT
+
+  metadata_startup_script = data.template_file.startup_script.rendered
 
   // Necessary scopes for administering kubernetes.
   service_account {
@@ -109,4 +131,21 @@ EOF
   }
 
   depends_on = [google_compute_firewall.bastion-ssh]
+}
+
+# create cloud router for nat gateway
+resource "google_compute_router" "router" {
+  project = var.project_id
+  name    = "nat-router"
+  network = google_compute_network.vpc_network.self_link
+  region  = var.region
+}
+
+module "cloud-nat" {
+  source     = "terraform-google-modules/cloud-nat/google"
+  version    = "~> 5.2"
+  project_id = var.project_id
+  region     = var.region
+  router     = google_compute_router.router.name
+  name       = "nat-config"
 }
