@@ -5,6 +5,7 @@ module "gke" {
   cluster_name = var.cluster_name
   region       = var.region
   node_count   = 3
+  location     = var.location
 }
 
 module "cloudflare" {
@@ -12,6 +13,10 @@ module "cloudflare" {
   cloudflare_api_token = var.cloudflare_api_token
 }
 
-output "kubernetes_cluster_host" {
-  value = module.gke.kubernetes_cluster_host
+module "airbyte" {
+  source                 = "./airbyte"
+  cluster_name           = var.cluster_name
+  location               = var.location
+  cluster_endpoint       = module.gke.kubernetes_cluster_host
+  cluster_ca_certificate = module.gke.cluster_ca_certificate
 }

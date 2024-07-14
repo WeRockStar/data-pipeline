@@ -128,48 +128,18 @@ resource "google_container_node_pool" "gke_node_pool" {
   }
 }
 
-data "google_client_config" "default" {
-
-}
-
-data "google_container_cluster" "gke" {
-  name     = var.cluster_name
-  location = var.location
-
-  depends_on = [google_container_cluster.gke_cluster]
-}
-
-provider "kubernetes" {
-  host                   = "https://${google_container_cluster.gke_cluster.endpoint}"
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(google_container_cluster.gke_cluster.master_auth.0.cluster_ca_certificate)
-}
-
-provider "helm" {
-  kubernetes {
-    host                   = "https://${google_container_cluster.gke_cluster.endpoint}"
-    token                  = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(google_container_cluster.gke_cluster.master_auth.0.cluster_ca_certificate)
-  }
-}
-
-# resource "helm_release" "airbyte" {
-#   name             = "airbyte"
-#   namespace        = "airbyte"
-#   create_namespace = true
-#   repository       = "https://airbytehq.github.io/helm-charts"
-#   chart            = "airbyte"
-#   version          = "0.293.4"
-
-#   # values = [file("${path.module}/values/airbyte.yaml")]
-# }
-
 output "kubernetes_cluster_host" {
   value       = google_container_cluster.gke_cluster.endpoint
   description = "GKE Cluster Host"
+  sensitive   = true
 }
 
 output "kubernetes_cluster_name" {
   value       = google_container_cluster.gke_cluster.name
   description = "GKE Cluster Name"
+}
+
+output "cluster_ca_certificate" {
+  value     = google_container_cluster.gke_cluster.master_auth.0.cluster_ca_certificate
+  sensitive = true
 }

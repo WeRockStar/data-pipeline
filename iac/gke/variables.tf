@@ -30,8 +30,7 @@ variable "region" {
 }
 
 variable "location" {
-  type    = string
-  default = "asia-southeast1-a"
+  type = string
 }
 
 variable "zone_c" {

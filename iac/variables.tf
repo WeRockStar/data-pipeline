@@ -25,3 +25,8 @@ variable "region" {
   type    = string
   default = "asia-southeast1"
 }
+
+variable "location" {
+  type    = string
+  default = "asia-southeast1-a"
+}
