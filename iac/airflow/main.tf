@@ -27,13 +27,13 @@ resource "kubernetes_namespace" "airflow" {
   }
 }
 
-resource "helm_release" "airflow" {
-  name       = "airflow"
-  namespace  = kubernetes_namespace.airflow.metadata.0.name
-  repository = "https://airflow.apache.org"
-  chart      = "apache-airflow/airflow"
-  version    = "1.14.0"
-  wait       = true
-  timeout    = 600
-  values     = [file("${path.module}/values.yaml")]
-}
+# resource "helm_release" "airflow" {
+#   name       = "airflow"
+#   namespace  = kubernetes_namespace.airflow.metadata.0.name
+#   repository = "https://airflow.apache.org"
+#   chart      = "apache-airflow/airflow"
+#   version    = "1.14.0"
+#   wait       = true
+#   timeout    = 600
+#   values     = [file("${path.module}/values.yaml")]
+# }

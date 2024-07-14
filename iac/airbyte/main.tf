@@ -27,13 +27,13 @@ resource "kubernetes_namespace" "airbyte" {
   }
 }
 
-resource "helm_release" "airbyte" {
-  name       = "airbyte"
-  namespace  = kubernetes_namespace.airbyte.metadata.0.name
-  repository = "https://airbytehq.github.io/helm-charts"
-  chart      = "airbyte/airbyte"
-  version    = "0.293.4"
-  wait       = true
-  timeout    = 600
-  values     = [file("${path.module}/values.yaml")]
-}
+# resource "helm_release" "airbyte" {
+#   name       = "airbyte"
+#   namespace  = kubernetes_namespace.airbyte.metadata.0.name
+#   repository = "https://airbytehq.github.io/helm-charts"
+#   chart      = "airbyte/airbyte"
+#   version    = "0.293.4"
+#   wait       = true
+#   timeout    = 600
+#   values     = [file("${path.module}/values.yaml")]
+# }

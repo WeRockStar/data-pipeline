@@ -128,6 +128,31 @@ resource "google_container_node_pool" "gke_node_pool" {
   }
 }
 
+data "google_client_config" "default" {
+}
+
+provider "helm" {
+  kubernetes {
+    host                   = "https://${google_container_cluster.gke_cluster.endpoint}"
+    token                  = data.google_client_config.default.access_token
+    cluster_ca_certificate = base64decode(google_container_cluster.gke_cluster.master_auth.0.cluster_ca_certificate)
+  }
+}
+
+resource "helm_release" "nginx_ingress" {
+  namespace        = "ingress-nginx"
+  wait             = true
+  timeout          = 600
+  create_namespace = true
+
+  name = "ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "ingress-nginx"
+  version    = "v4.11.0"
+
+  values = [file("${path.module}/values/nginx.yaml")]
+}
+
 output "kubernetes_cluster_host" {
   value       = google_container_cluster.gke_cluster.endpoint
   description = "GKE Cluster Host"
