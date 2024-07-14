@@ -6,9 +6,11 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 
 ## Prerequisites
 
-- Terraform
-- GCP account
-- gcloud CLI
+- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+- GCP Account
+  - GCP Project
+- `gcloud` - Google Cloud CLI
+- `kubectl` - Kubernetes CLI
 
 ## Setup
 
