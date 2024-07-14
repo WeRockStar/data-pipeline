@@ -17,17 +17,22 @@ provider "helm" {
   kubernetes {
     host                   = "https://${var.cluster_endpoint}"
     token                  = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(google_container_cluster.gke_cluster.master_auth.0.cluster_ca_certificate)
+    cluster_ca_certificate = base64decode(var.cluster_ca_certificate)
   }
 }
 
-# resource "helm_release" "airbyte" {
-#   name             = "airbyte"
-#   namespace        = "airbyte"
-#   create_namespace = true
-#   repository       = "https://airbytehq.github.io/helm-charts"
-#   chart            = "airbyte"
-#   version          = "0.293.4"
+resource "kubernetes_namespace" "airbyte" {
+  metadata {
+    name = "airbyte"
+  }
+}
 
-#   # values = [file("${path.module}/values/airbyte.yaml")]
-# }
+resource "helm_release" "airbyte" {
+  name       = "airbyte"
+  namespace  = kubernetes_namespace.airbyte.metadata.0.name
+  repository = "https://airbytehq.github.io/helm-charts"
+  chart      = "airbyte/airbyte"
+  version    = "0.293.4"
+
+  values = [file("${path.module}/values.yaml")]
+}

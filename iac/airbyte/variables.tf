@@ -4,7 +4,7 @@ variable "cluster_name" {
 }
 
 variable "location" {
-  type    = string
+  type = string
 }
 
 variable "cluster_endpoint" {
