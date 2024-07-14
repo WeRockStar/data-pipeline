@@ -21,18 +21,18 @@ provider "helm" {
   }
 }
 
-resource "kubernetes_namespace" "airbyte" {
+resource "kubernetes_namespace" "airflow" {
   metadata {
-    name = "airbyte"
+    name = "airflow"
   }
 }
 
-resource "helm_release" "airbyte" {
-  name       = "airbyte"
-  namespace  = kubernetes_namespace.airbyte.metadata.0.name
-  repository = "https://airbytehq.github.io/helm-charts"
-  chart      = "airbyte/airbyte"
-  version    = "0.293.4"
+resource "helm_release" "airflow" {
+  name       = "airflow"
+  namespace  = kubernetes_namespace.airflow.metadata.0.name
+  repository = "https://airflow.apache.org"
+  chart      = "apache-airflow/airflow"
+  version    = "1.14.0"
   wait       = true
   timeout    = 600
   values     = [file("${path.module}/values.yaml")]

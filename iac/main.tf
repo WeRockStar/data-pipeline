@@ -20,3 +20,11 @@ module "airbyte" {
   cluster_endpoint       = module.gke.kubernetes_cluster_host
   cluster_ca_certificate = module.gke.cluster_ca_certificate
 }
+
+module "airflow" {
+  source                 = "./airflow"
+  cluster_name           = var.cluster_name
+  location               = var.location
+  cluster_endpoint       = module.gke.kubernetes_cluster_host
+  cluster_ca_certificate = module.gke.cluster_ca_certificate
+}
