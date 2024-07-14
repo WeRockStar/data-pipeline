@@ -122,6 +122,10 @@ resource "google_container_node_pool" "gke_node_pool" {
     # }
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   timeouts {
     create = "20m"
     update = "20m"
