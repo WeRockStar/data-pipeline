@@ -1,3 +1,20 @@
+# Airflow
+
+## How to Apply Ingress
+
+```bash
+kubectl apply -f k8s/ingress.yaml
+```
+
+## How to Know Helm Chart Values
+
+```bash
+helm show values apache-airflow/airflow > values.yaml
+
+# or view only
+helm show values apache-airflow/airflow
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
