@@ -32,8 +32,8 @@ resource "google_container_cluster" "gke_cluster" {
   initial_node_count       = var.node_count
   remove_default_node_pool = true
   deletion_protection      = false
-  network    = google_compute_network.vpc_network.self_link
-  subnetwork = google_compute_subnetwork.vpc_subnetwork.self_link
+  network                  = google_compute_network.vpc_network.self_link
+  subnetwork               = google_compute_subnetwork.vpc_subnetwork.self_link
 
   release_channel {
     channel = "STABLE"
@@ -45,19 +45,19 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   private_cluster_config {
-    enable_private_endpoint = true
-    enable_private_nodes    = true
+    enable_private_endpoint = false
+    enable_private_nodes    = false
     master_ipv4_cidr_block  = "10.13.0.0/28"
   }
 
-  # network_policy {
-  #   enabled  = true
-  #   provider = "CALICO"
-  # }
+  network_policy {
+    enabled  = true
+    provider = "CALICO"
+  }
 
-  # workload_identity_config {
-  #   workload_pool = "${var.project_id}.svc.id.goog"
-  # }
+  workload_identity_config {
+    workload_pool = "${var.project_id}.svc.id.goog"
+  }
 
   master_authorized_networks_config {
     cidr_blocks {
@@ -108,18 +108,18 @@ resource "google_container_node_pool" "gke_node_pool" {
       "project" = var.project_name
     }
 
-    # shielded_instance_config {
-    #   enable_secure_boot = true
-    # }
+    shielded_instance_config {
+      enable_secure_boot = true
+    }
 
-    # metadata = {
-    #   disable-legacy-endpoints         = true
-    #   google-compute-enable-virtio-rng = true
-    # }
+    metadata = {
+      disable-legacy-endpoints         = true
+      google-compute-enable-virtio-rng = true
+    }
 
-    # workload_metadata_config {
-    #   mode = "GKE_METADATA"
-    # }
+    workload_metadata_config {
+      mode = "GKE_METADATA"
+    }
   }
 
   timeouts {
