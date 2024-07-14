@@ -19,6 +19,8 @@ module "airbyte" {
   location               = var.location
   cluster_endpoint       = module.gke.kubernetes_cluster_host
   cluster_ca_certificate = module.gke.cluster_ca_certificate
+  zone_id                = var.zone_id
+  cloudflare_api_token   = var.cloudflare_api_token
 }
 
 module "airflow" {
@@ -27,4 +29,6 @@ module "airflow" {
   location               = var.location
   cluster_endpoint       = module.gke.kubernetes_cluster_host
   cluster_ca_certificate = module.gke.cluster_ca_certificate
+  zone_id                = var.zone_id
+  cloudflare_api_token   = var.cloudflare_api_token
 }

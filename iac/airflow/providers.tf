@@ -18,5 +18,13 @@ terraform {
       source  = "hashicorp/null"
       version = "3.2.2"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "4.34.0"
+    }
   }
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }

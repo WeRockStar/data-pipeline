@@ -18,3 +18,15 @@ variable "cluster_ca_certificate" {
   description = "GKE Cluster CA Certificate"
   sensitive   = true
 }
+
+variable "zone_id" {
+  type        = string
+  description = "Cloudflare Zone ID"
+  sensitive   = true
+}
+
+variable "cloudflare_api_token" {
+  type        = string
+  description = "Cloudflare API Token"
+  sensitive   = true
+}

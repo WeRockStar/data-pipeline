@@ -30,3 +30,8 @@ variable "location" {
   type    = string
   default = "asia-southeast1-a"
 }
+
+variable "zone_id" {
+  type        = string
+  description = "Cloudflare Zone ID"
+}

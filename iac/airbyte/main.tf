@@ -45,3 +45,19 @@ resource "null_resource" "execute_command" {
 
   depends_on = [kubernetes_namespace.airbyte]
 }
+
+data "kubernetes_service" "service" {
+  metadata {
+    name      = "ingress-nginx-controller"
+    namespace = "ingress-nginx"
+  }
+  depends_on = [null_resource.execute_command]
+}
+
+resource "cloudflare_record" "airbyte_record" {
+  name    = "airbyte"
+  value   = data.kubernetes_service.service.status[0].load_balancer[0].ingress[0].ip
+  type    = "A"
+  proxied = true
+  zone_id = var.zone_id
+}
