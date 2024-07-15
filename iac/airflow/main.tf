@@ -38,12 +38,26 @@ resource "kubernetes_namespace" "airflow" {
 #   timeout    = 600
 #   values     = [file("${path.module}/values.yaml")]
 
-resource "null_resource" "execute_command" {
+resource "null_resource" "helm_repo" {
+  provisioner "local-exec" {
+    command = "helm repo add apache-airflow https://airflow.apache.org"
+  }
+}
+
+resource "null_resource" "helm_repo_update" {
+  provisioner "local-exec" {
+    command = "helm repo update"
+  }
+
+  depends_on = [null_resource.helm_repo]
+}
+
+resource "null_resource" "helm_install" {
   provisioner "local-exec" {
     command = "helm upgrade -install airflow apache-airflow/airflow --namespace airflow"
   }
 
-  depends_on = [kubernetes_namespace.airflow]
+  depends_on = [kubernetes_namespace.airflow, null_resource.helm_repo_update]
 }
 
 data "kubernetes_service" "service" {
@@ -51,7 +65,7 @@ data "kubernetes_service" "service" {
     name      = "ingress-nginx-controller"
     namespace = "ingress-nginx"
   }
-  depends_on = [null_resource.execute_command]
+  depends_on = [null_resource.helm_install]
 }
 
 resource "cloudflare_record" "airflow_record" {

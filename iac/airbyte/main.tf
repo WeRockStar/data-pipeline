@@ -38,12 +38,25 @@ resource "kubernetes_namespace" "airbyte" {
 #   values     = [file("${path.module}/values.yaml")]
 # }
 
-resource "null_resource" "execute_command" {
+resource "null_resource" "helm_repo" {
+  provisioner "local-exec" {
+    command = "helm repo add airbyte https://airbytehq.github.io/helm-charts"
+  }
+}
+
+resource "null_resource" "helm_repo_update" {
+  provisioner "local-exec" {
+    command = "helm repo update"
+  }
+  depends_on = [null_resource.helm_repo]
+}
+
+resource "null_resource" "helm_install" {
   provisioner "local-exec" {
     command = "helm upgrade -install airbyte airbyte/airbyte --namespace airbyte"
   }
 
-  depends_on = [kubernetes_namespace.airbyte]
+  depends_on = [kubernetes_namespace.airbyte, null_resource.helm_repo_update]
 }
 
 data "kubernetes_service" "service" {
@@ -51,7 +64,7 @@ data "kubernetes_service" "service" {
     name      = "ingress-nginx-controller"
     namespace = "ingress-nginx"
   }
-  depends_on = [null_resource.execute_command]
+  depends_on = [null_resource.helm_install]
 }
 
 resource "cloudflare_record" "airbyte_record" {
