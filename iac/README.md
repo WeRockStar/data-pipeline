@@ -35,8 +35,11 @@ Goal is to provision the following resources and organize them in modules:
   - [x] airbyte.werockstar.dev
   - [x] airflow.werockstar.dev
 - [ ] Cloud SQL (Postgres)
+  - [ ] Postgres for Airflow
+  - [ ] And one for acting as a Data Source/Destination
 - [ ] Cloud Storage (Bucket)
-- [ ] BigQuery Dataset
+  - [x] Terraform State
+- [ ] BigQuery Dataset - Data Warehouse
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
