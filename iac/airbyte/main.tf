@@ -67,10 +67,17 @@ data "kubernetes_service" "service" {
   depends_on = [null_resource.helm_install]
 }
 
-resource "cloudflare_record" "airbyte_record" {
+resource "cloudflare_record" "airbyte_a_record" {
   name    = "airbyte"
   value   = data.kubernetes_service.service.status[0].load_balancer[0].ingress[0].ip
   type    = "A"
   proxied = true
   zone_id = var.zone_id
+}
+
+resource "null_resource" "airbyte_ingress" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f ${path.module}/k8s/ingress.yaml"
+  }
+  depends_on = [ cloudflare_record.airbyte_a_record ]
 }
