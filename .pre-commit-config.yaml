@@ -28,3 +28,11 @@ repos:
         pass_filenames: false
         types: [terraform]
         stages: [pre-commit]
+  - repo: local
+    hooks:
+      - id: trivy-scan
+        name: Trivy Scan
+        language: system
+        entry: make trivy-filesystem
+        pass_filenames: false
+        stages: [pre-commit]

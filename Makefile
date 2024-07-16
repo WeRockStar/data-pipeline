@@ -10,3 +10,5 @@ tf-format-check:
 	cd iac && terraform fmt -check
 tf-format:
 	cd iac && terraform fmt --recursive
+trivy-filesystem:
+	trivy filesystem --severity=CRITICAL,HIGH .
