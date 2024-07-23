@@ -1,5 +1,7 @@
 # Learning How to Build Data Pipelines
 
+## 🔁 Work-in-Progress
+
 ![CI](https://github.com/WeRockStar/data-pipeline/actions/workflows/ci.yaml/badge.svg)
 
 This repository is a learning project to build data pipelines using the following tools:
