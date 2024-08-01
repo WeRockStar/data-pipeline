@@ -19,7 +19,7 @@ This repository contains the Terraform code to deploy the infrastructure for Dat
 - Login to GCP account using `gcloud auth login`
 - Set the project using `gcloud config set project <project-id>`
 - Change project id in `variables.tf` file
-- Plan and apply the Terraform code using `terraform apply` and `terraform apply`
+- Plan and apply the Terraform code using `terraform plan` and `terraform apply`
 - Destroy the infrastructure using `terraform destroy`
 
 ### Provisioning
@@ -37,7 +37,7 @@ Goal is to provision the following resources and organize them in modules:
 - [ ] Cloud SQL (Postgres)
   - [ ] Postgres for Airflow
   - [ ] And one for acting as a Data Source/Destination
-- [ ] Cloud Storage (Bucket)
+- [x] Cloud Storage (Bucket)
   - [x] Terraform State
 - [ ] BigQuery Dataset - Data Warehouse
 
