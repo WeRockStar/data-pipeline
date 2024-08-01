@@ -20,20 +20,20 @@ helm show values apache-airflow/airflow
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.34.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.37.0 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | 5.37.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.14 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.29.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.31.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | 4.34.0 |
+| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | 4.37.0 |
 | <a name="provider_google"></a> [google](#provider\_google) | 5.37.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.29.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.31.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.2 |
 
 ## Modules
@@ -44,12 +44,15 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [cloudflare_record.airflow_record](https://registry.terraform.io/providers/cloudflare/cloudflare/4.34.0/docs/resources/record) | resource |
-| [kubernetes_namespace.airflow](https://registry.terraform.io/providers/hashicorp/kubernetes/2.29.0/docs/resources/namespace) | resource |
-| [null_resource.execute_command](https://registry.terraform.io/providers/hashicorp/null/3.2.2/docs/resources/resource) | resource |
+| [cloudflare_record.airflow_a_record](https://registry.terraform.io/providers/cloudflare/cloudflare/4.37.0/docs/resources/record) | resource |
+| [kubernetes_namespace.airflow](https://registry.terraform.io/providers/hashicorp/kubernetes/2.31.0/docs/resources/namespace) | resource |
+| [null_resource.airflow_ingress](https://registry.terraform.io/providers/hashicorp/null/3.2.2/docs/resources/resource) | resource |
+| [null_resource.helm_install](https://registry.terraform.io/providers/hashicorp/null/3.2.2/docs/resources/resource) | resource |
+| [null_resource.helm_repo](https://registry.terraform.io/providers/hashicorp/null/3.2.2/docs/resources/resource) | resource |
+| [null_resource.helm_repo_update](https://registry.terraform.io/providers/hashicorp/null/3.2.2/docs/resources/resource) | resource |
 | [google_client_config.default](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/data-sources/client_config) | data source |
 | [google_container_cluster.gke](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/data-sources/container_cluster) | data source |
-| [kubernetes_service.service](https://registry.terraform.io/providers/hashicorp/kubernetes/2.29.0/docs/data-sources/service) | data source |
+| [kubernetes_service.service](https://registry.terraform.io/providers/hashicorp/kubernetes/2.31.0/docs/data-sources/service) | data source |
 
 ## Inputs
 

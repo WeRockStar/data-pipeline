@@ -47,10 +47,10 @@ Goal is to provision the following resources and organize them in modules:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.34.0 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.37.0 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | 5.37.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.14 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.29.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.31.0 |
 | <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |
 
 ## Providers
@@ -63,7 +63,6 @@ No providers.
 |------|--------|---------|
 | <a name="module_airbyte"></a> [airbyte](#module\_airbyte) | ./airbyte | n/a |
 | <a name="module_airflow"></a> [airflow](#module\_airflow) | ./airflow | n/a |
-| <a name="module_cloudflare"></a> [cloudflare](#module\_cloudflare) | ./cloudflare | n/a |
 | <a name="module_gke"></a> [gke](#module\_gke) | ./gke | n/a |
 
 ## Resources
