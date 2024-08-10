@@ -1,9 +1,12 @@
 # Kubernetes
 
+Required to provision GKE Cluster before applying Terraform code. see [Step to Setup](../iac/README.md)
+
 ## Prerequisites
 
 - [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [gcloud](https://cloud.google.com/sdk/docs/install)
 
 ## How to Provision
 
