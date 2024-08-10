@@ -1,20 +1,37 @@
+# Kubernetes
+
+## Prerequisites
+
+- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
+## How to Provision
+
+### Step 1: Apply Ingress
+
+```bash
+kubectl apply -f ingress.yaml
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.37.0 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | 5.40.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.31.0 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.2 |
 | <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | n/a |
+| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | 4.37.0 |
 | <a name="provider_google"></a> [google](#provider\_google) | 5.40.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.31.0 |
 
 ## Modules
 
@@ -24,15 +41,11 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [cloudflare_record.airbyte_a_record](https://registry.terraform.io/providers/hashicorp/cloudflare/latest/docs/resources/record) | resource |
-| [kubernetes_namespace.airbyte](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
-| [null_resource.airbyte_ingress](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
-| [null_resource.helm_install](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
-| [null_resource.helm_repo](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
-| [null_resource.helm_repo_update](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [cloudflare_record.airbyte_a_record](https://registry.terraform.io/providers/cloudflare/cloudflare/4.37.0/docs/resources/record) | resource |
+| [cloudflare_record.airflow_a_record](https://registry.terraform.io/providers/cloudflare/cloudflare/4.37.0/docs/resources/record) | resource |
 | [google_client_config.default](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/data-sources/client_config) | data source |
 | [google_container_cluster.gke](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/data-sources/container_cluster) | data source |
-| [kubernetes_service.service](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/service) | data source |
+| [kubernetes_service.service](https://registry.terraform.io/providers/hashicorp/kubernetes/2.31.0/docs/data-sources/service) | data source |
 
 ## Inputs
 
