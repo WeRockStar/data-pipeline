@@ -9,8 +9,8 @@
 # }
 
 
-module "bucket" {
-  source       = "./modules/bucket"
+module "data_storage" {
+  source       = "./modules/data-storage"
   project_name = var.project_name
   project_id   = var.project_id
   region       = var.region

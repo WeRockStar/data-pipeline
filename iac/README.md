@@ -32,8 +32,8 @@ Goal is to provision the following resources and organize them in modules:
   - [x] Node Pool
   - [x] Install `Airflow`, `Airbyte`, and other tools
 - [x] Cloudflare
-  - [x] airbyte.werockstar.dev
-  - [x] airflow.werockstar.dev
+  - [x] [https://airbyte.werockstar.dev](https://airbyte.werockstar.dev)
+  - [x] [https://airflow.werockstar.dev](https://airflow.werockstar.dev)
 - [ ] Cloud SQL (Postgres)
   - [ ] Postgres for Airflow
   - [ ] And one for acting as a Data Source/Destination
@@ -47,43 +47,34 @@ Goal is to provision the following resources and organize them in modules:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.39.0 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | 5.40.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.14 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.31.0 |
 | <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.40.0 |
+No providers.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_data_storage"></a> [data\_storage](#module\_data\_storage) | ./modules/data-storage | n/a |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [google_storage_bucket.tf-bucket](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/storage_bucket) | resource |
+No resources.
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cloudflare_api_token"></a> [cloudflare\_api\_token](#input\_cloudflare\_api\_token) | n/a | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | GKE Cluster Name | `string` | `"data-pipeline-cluster"` | no |
 | <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"asia-southeast1-a"` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP Project ID | `string` | `"learn-airbyte-425016"` | no |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Name of Porject | `string` | `"data-pipeline"` | no |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"asia-southeast1"` | no |
-| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | Cloudflare Zone ID | `string` | n/a | yes |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_backend_bucket"></a> [backend\_bucket](#output\_backend\_bucket) | n/a |
+No outputs.
 <!-- END_TF_DOCS -->
