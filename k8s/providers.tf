@@ -10,18 +10,30 @@ terraform {
       source  = "hashicorp/template"
       version = "2.2.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "4.37.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.2"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.31.0"
+    }
   }
 
   backend "gcs" {
     bucket = "data-pipeline-tfstate-425016"
-    prefix = "infra-core"
+    prefix = "cloudflare-dns"
   }
 
 }
 
 provider "google" {
   project = var.project_id
-  region  = "asia-southeast1"
+  region  = var.region
 
   default_labels = {
     project = var.project_name
