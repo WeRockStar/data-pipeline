@@ -35,9 +35,3 @@ variable "location" {
   type    = string
   default = "asia-southeast1-a"
 }
-
-variable "cluster_endpoint" {
-  type        = string
-  description = "GKE Cluster Endpoint"
-  sensitive   = true
-}
