@@ -46,6 +46,12 @@ kubectl apply -f ingress.yaml
 terraform apply -auto-approve
 ```
 
+## Helm Upgrade
+
+```bash
+helm upgrade --install airflow apache-airflow/airflow --namespace airflow -f airflow/values.yaml
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
