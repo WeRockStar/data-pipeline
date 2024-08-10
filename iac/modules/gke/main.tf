@@ -29,7 +29,7 @@ resource "google_project_iam_binding" "gke_sa" {
 resource "google_container_cluster" "gke_cluster" {
   name                     = var.cluster_name
   location                 = var.location
-  initial_node_count       = var.node_count
+  initial_node_count       = 3
   remove_default_node_pool = true
   deletion_protection      = false
   network                  = google_compute_network.vpc_network.self_link
