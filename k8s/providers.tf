@@ -25,7 +25,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "data-pipeline-tfstate-425016"
+    bucket = "data-pipeline-tf-state-425016"
     prefix = "cloudflare-dns"
   }
 

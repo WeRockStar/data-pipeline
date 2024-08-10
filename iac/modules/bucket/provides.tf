@@ -6,17 +6,7 @@ terraform {
       source  = "hashicorp/google"
       version = "5.40.0"
     }
-    template = {
-      source  = "hashicorp/template"
-      version = "2.2.0"
-    }
   }
-
-  backend "gcs" {
-    bucket = "data-pipeline-tf-state-425016"
-    prefix = "infra-core"
-  }
-
 }
 
 provider "google" {
