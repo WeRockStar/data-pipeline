@@ -10,11 +10,6 @@ variable "project_name" {
   default     = "data-pipeline"
 }
 
-variable "cloudflare_api_token" {
-  type      = string
-  sensitive = true
-}
-
 variable "cluster_name" {
   description = "GKE Cluster Name"
   type        = string
@@ -29,9 +24,4 @@ variable "region" {
 variable "location" {
   type    = string
   default = "asia-southeast1-a"
-}
-
-variable "zone_id" {
-  type        = string
-  description = "Cloudflare Zone ID"
 }
