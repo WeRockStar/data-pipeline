@@ -25,9 +25,20 @@ jobs:
         run: tflint --init
       - name: Run TFLint
         run: tflint -f compact --chdir=./iac --chdir=./k8s
+  tf-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.4
+      - run: terraform fmt -check=true -recursive ./iac ./k8s
   tf-sec:
     runs-on: ubuntu-latest
-    needs: tf-lint
+    needs:
+      - tf-format
+      - tf-lint
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
