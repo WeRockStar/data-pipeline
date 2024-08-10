@@ -4,7 +4,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "5.37.0"
+      version = "5.40.0"
     }
     template = {
       source  = "hashicorp/template"
@@ -20,7 +20,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "4.37.0"
+      version = "4.39.0"
     }
   }
 

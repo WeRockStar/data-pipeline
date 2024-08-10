@@ -47,27 +47,27 @@ Goal is to provision the following resources and organize them in modules:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.37.0 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | 5.37.0 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.39.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | 5.40.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.14 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.31.0 |
 | <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | 5.40.0 |
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_airbyte"></a> [airbyte](#module\_airbyte) | ./airbyte | n/a |
-| <a name="module_airflow"></a> [airflow](#module\_airflow) | ./airflow | n/a |
-| <a name="module_gke"></a> [gke](#module\_gke) | ./gke | n/a |
+No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [google_storage_bucket.tf-bucket](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/storage_bucket) | resource |
 
 ## Inputs
 
@@ -83,5 +83,7 @@ No resources.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_backend_bucket"></a> [backend\_bucket](#output\_backend\_bucket) | n/a |
 <!-- END_TF_DOCS -->
