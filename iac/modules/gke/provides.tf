@@ -4,7 +4,11 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "5.37.0"
+      version = "5.40.0"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "2.2.0"
     }
     helm = {
       source  = "hashicorp/helm"
@@ -14,17 +18,14 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.31.0"
     }
-    null = {
-      source  = "hashicorp/null"
-      version = "3.2.2"
-    }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "4.37.0"
-    }
   }
 }
 
-provider "cloudflare" {
-  api_token = var.cloudflare_api_token
+provider "google" {
+  project = var.project_id
+  region  = var.region
+
+  default_labels = {
+    project = var.project_name
+  }
 }

@@ -4,7 +4,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | 5.37.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | 5.40.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.14 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.31.0 |
 | <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |
@@ -24,15 +24,15 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [google_compute_network.vpc_network](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/resources/compute_network) | resource |
-| [google_compute_subnetwork.vpc_subnetwork](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/resources/compute_subnetwork) | resource |
-| [google_container_cluster.gke_cluster](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/resources/container_cluster) | resource |
-| [google_container_node_pool.gke_node_pool](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/resources/container_node_pool) | resource |
-| [google_project_iam_binding.gke_sa](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/resources/project_iam_binding) | resource |
-| [google_project_service.services](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/resources/project_service) | resource |
-| [google_service_account.gke](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/resources/service_account) | resource |
+| [google_compute_network.vpc_network](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/compute_network) | resource |
+| [google_compute_subnetwork.vpc_subnetwork](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/compute_subnetwork) | resource |
+| [google_container_cluster.gke_cluster](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/container_cluster) | resource |
+| [google_container_node_pool.gke_node_pool](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/container_node_pool) | resource |
+| [google_project_iam_binding.gke_sa](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/project_iam_binding) | resource |
+| [google_project_service.services](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/project_service) | resource |
+| [google_service_account.gke](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/resources/service_account) | resource |
 | [helm_release.nginx_ingress](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [google_client_config.default](https://registry.terraform.io/providers/hashicorp/google/5.37.0/docs/data-sources/client_config) | data source |
+| [google_client_config.default](https://registry.terraform.io/providers/hashicorp/google/5.40.0/docs/data-sources/client_config) | data source |
 
 ## Inputs
 
