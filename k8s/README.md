@@ -60,7 +60,6 @@ helm upgrade --install airflow apache-airflow/airflow --namespace airflow -f air
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | 4.37.0 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | 5.40.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | 2.14.1 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.31.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | 3.2.2 |
 | <a name="requirement_template"></a> [template](#requirement\_template) | 2.2.0 |

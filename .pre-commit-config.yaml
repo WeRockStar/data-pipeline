@@ -12,24 +12,11 @@ repos:
     rev: 24.8.0
     hooks:
       - id: black
-  - repo: local
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.23
     hooks:
-      - id: terraform-format-check
-        name: Terraform Format
-        language: system
-        entry: make tf-validate
-        pass_filenames: false
-        types: [terraform]
-        stages: [pre-commit]
-  - repo: local
-    hooks:
+      - id: terraform-fmt
       - id: terraform-validate
-        name: Terraform Validate
-        language: system
-        entry: make tf-format-check
-        pass_filenames: false
-        types: [terraform]
-        stages: [pre-commit]
   - repo: local
     hooks:
       - id: trivy-scan

@@ -49,23 +49,6 @@ variable "services" {
   default     = ["compute.googleapis.com", "iam.googleapis.com", "container.googleapis.com", "iap.googleapis.com"]
 }
 
-variable "bastion_machine_type" {
-  description = "The instance size to use for your bastion instance."
-  type        = string
-  default     = "g1-small"
-}
-
-variable "bastion_hostname" {
-  type    = string
-  default = "gke-bastion"
-}
-
-variable "bastion_tags" {
-  description = "A list of tags applied to your bastion instance."
-  type        = list(string)
-  default     = ["bastion"]
-}
-
 variable "ip_range" {
   description = "The CIDR range for the VPC."
   type        = string

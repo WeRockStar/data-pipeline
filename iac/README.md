@@ -59,6 +59,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_data_storage"></a> [data\_storage](#module\_data\_storage) | ./modules/data-storage | n/a |
+| <a name="module_gke"></a> [gke](#module\_gke) | ./modules/gke | n/a |
 
 ## Resources
 
